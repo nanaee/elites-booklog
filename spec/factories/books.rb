@@ -1,9 +1,12 @@
 FactoryGirl.define do
-  factory :user do
-    sequence(:name) { |n| "test #{n}" }
-    sequence(:email) { |n| "user#{n}@test2.com" }
-    password "testtesttest"
-    password_confirmation "testtesttest"
-    agreement '1'
+  factory :book do
+    title "MyString"
+    user_id 1
+    author "MyString"
+    publisher "MyString"
+    price 1
+    publish_date "2017-02-12 06:36:25"
+    caption "MyText"
+    image "MyString"
   end
 end
