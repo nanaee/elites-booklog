@@ -3,6 +3,9 @@ class BooksController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
 
   def index
+    
+    @categories = Category.all
+    
     if user_signed_in? && params[:ft] && params[:ft] == 'my'
       @books = Book.includes(:bookmarks, :reviews, :user).where(user_id: current_user.id).order('updated_at DESC')
     elsif user_signed_in? && params[:ft] && params[:ft] == 'bookmark'
@@ -10,6 +13,12 @@ class BooksController < ApplicationController
     else
       @books = Book.includes(:bookmarks, :reviews, :user).order('updated_at DESC')
     end
+    
+    if params[:category_id]
+      # @books = @books.where(category_id: params[:category_id])
+      @books = @books.categorize(params[:category_id])
+    end
+
   end
 
   def show
@@ -27,6 +36,10 @@ class BooksController < ApplicationController
         @my_review = Review.new
       end
     end
+    
+    
+  
+    
   end
 
   def new
@@ -72,6 +85,7 @@ class BooksController < ApplicationController
 
   private
   def input_params
-    params.require(:book).permit(:title, :author, :publisher, :price, :publish_date, :caption, :image)
+    params.require(:book).permit(:title, :author, :publisher, :price, :publish_date, :caption, :category_id, :image)
   end
+  
 end
