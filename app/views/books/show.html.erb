@@ -32,7 +32,7 @@
       </div>
     </div>
   <% end %>
-
+  
   <div class="row">
 
     <div class="col-sm-4">
@@ -63,6 +63,10 @@
 
       <div class="caption">
         <%= label :book, :caption %>: <%= @book.caption %>
+      </div>
+      
+      <div>
+        <%= label :book, :category_id %>: <%= @book.category.name %>
       </div>
 
       <div class="info">
